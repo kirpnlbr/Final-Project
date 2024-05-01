@@ -194,10 +194,6 @@ def create_payslip(request):
     
     return redirect('payslips')
 
-
-
-
-
 def update_employee(request):
     return render(request, 'payroll_app/update_employee.html')
 
