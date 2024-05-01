@@ -4,17 +4,64 @@
 {% block content %}
 
 <!-- Header-->
-<div class="flex items-center justify-between mb-12">
+<div class="flex items-center mb-12">
     <div>
         <span class="text-2xl font-semibold">Payslips</span>
         <p class="text-sm pt-2 text-[#71717A]">Manage your employees' payslips.</p>
     </div>
-    <div>
-        <a href="{% url 'create_employee' %}" class="flex items-center rounded-md text-sm bg-black text-white px-4 py-2 hover:bg-[#1B1B1B]">
-            <svg class="-ml-0.5 mr-2.5" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 2.75C8 2.47386 7.77614 2.25 7.5 2.25C7.22386 2.25 7 2.47386 7 2.75V7H2.75C2.47386 7 2.25 7.22386 2.25 7.5C2.25 7.77614 2.47386 8 2.75 8H7V12.25C7 12.5261 7.22386 12.75 7.5 12.75C7.77614 12.75 8 12.5261 8 12.25V8H12.25C12.5261 8 12.75 7.77614 12.75 7.5C12.75 7.22386 12.5261 7 12.25 7H8V2.75Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-            New Employee
-        </a>        
-    </div>
 </div>
+
+<!-- Payroll Creation -->
+<div class="rounded-md bg-white border border-gray-200 sm:p-6 md:p-8">
+    <form class="space-y-6" action="#">
+        <h2 class="text-lg font-medium">Payroll Creation</h2>
+        <!-- Payroll For -->
+        <div>
+            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Payroll for</label>
+            <select id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required >
+                <option disabled selected>Select employee...</option>
+                <option value="all_employees"> Employees</option>
+                <option value="every_employee_ID">Every employee ID number</option>
+            </select>
+        </div>
+        <hr class="my-6 border-gray-200">
+        <!-- Month -->
+        <div>
+            <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
+            <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required >
+                <option disabled selected>Select a month...</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+            </select> 
+        </div>
+        <!-- Year -->
+        <div>
+            <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
+            <input type="number" name="year" id="year" min="1900" max="2024" placeholder="YYYY" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required />
+        </div>
+        <!-- Cycle -->
+        <div class="pb-4">
+            <label for="cycle" class="block mb-2 text-sm font-medium text-gray-900">Cycle</label>
+            <select id="cycle" name="cycle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required >
+                <option disabled selected>Select cycle...</option>
+                <option value="all_employees">1</option>
+                <option value="every_employee_ID">2</option>
+            </select>
+        </div>
+        <button type="submit" class="w-full text-white bg-black hover:bg-[#1B1B1B] font-medium rounded-md text-sm px-5 py-3 text-center">Submit</button>
+    </form>
+</div>
+
+<!-- Payslips Summary -->
 
 {% endblock %}
