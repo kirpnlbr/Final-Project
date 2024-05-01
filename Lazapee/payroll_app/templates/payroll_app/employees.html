@@ -62,52 +62,49 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class="relative">
-                        <button id="dropdownToggleButton-{{ employee.id_number }}" aria-haspopup="true" aria-expanded="false" class="flex items-center font-medium bg-gray-50 border border-gray-200 px-4 py-2 rounded-md dropdown-toggle">
+                        <button onclick="toggleDropdown()" class="flex items-center bg-gray-50 border border-gray-200 px-4 py-2 rounded-md text-gray-900">
                             Options
                             <svg class="ml-1.5 -mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4 6H11L7.5 10.5L4 6Z" fill="currentColor"></path>
                             </svg>
                         </button>
                         <!-- Dropdown menu -->
-                        <div id="dropdownMenu-{{ employee.id_number }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 dropdown-menu">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconHorizontalButton">
+                        <div id="dropdownMenu" class="absolute z-50 hidden bg-white divide-y border mt-1.5 border-gray-200 divide-gray-100 rounded-lg shadow-sm w-44">
+                            <ul class="py-2 text-sm text-gray-900">
+                                <!-- Add Overtime -->
                                 <li>
-                                    <a href="{% url 'update_employee' employee.id_number %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                    <a href="#" class="px-4 py-2 hover:bg-gray-100 flex items-center">
+                                        <svg class="mr-2" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 3.5C2 3.22386 2.22386 3 2.5 3H12.5C12.7761 3 13 3.22386 13 3.5V9.5C13 9.77614 12.7761 10 12.5 10H2.5C2.22386 10 2 9.77614 2 9.5V3.5ZM2 10.9146C1.4174 10.7087 1 10.1531 1 9.5V3.5C1 2.67157 1.67157 2 2.5 2H12.5C13.3284 2 14 2.67157 14 3.5V9.5C14 10.1531 13.5826 10.7087 13 10.9146V11.5C13 12.3284 12.3284 13 11.5 13H3.5C2.67157 13 2 12.3284 2 11.5V10.9146ZM12 11V11.5C12 11.7761 11.7761 12 11.5 12H3.5C3.22386 12 3 11.7761 3 11.5V11H12ZM5 6.5C5 6.22386 5.22386 6 5.5 6H7V4.5C7 4.22386 7.22386 4 7.5 4C7.77614 4 8 4.22386 8 4.5V6H9.5C9.77614 6 10 6.22386 10 6.5C10 6.77614 9.77614 7 9.5 7H8V8.5C8 8.77614 7.77614 9 7.5 9C7.22386 9 7 8.77614 7 8.5V7H5.5C5.22386 7 5 6.77614 5 6.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                        Add Overtime
+                                    </a>
+                                    <div class="flex items-center px-4 py-1">
+                                        <input id="overtime_hours" type="number" class="w-full border border-gray-200 bg-gray-50 rounded-md py-1.5 px-2.5 text-sm" placeholder="Overtime hours">
+                                    </div>
                                 </li>
+                                <hr class="my-2 border-gray-200">
+                                <!-- Edit Details -->
                                 <li>
-                                    <a href="{% url 'delete_employee' employee.id_number %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+                                    <a href="{% url 'update_employee' employee.id_number %}" class="px-4 py-2 hover:bg-gray-100 flex items-center">
+                                        <svg class="mr-2" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11.8536 1.14645C11.6583 0.951184 11.3417 0.951184 11.1465 1.14645L3.71455 8.57836C3.62459 8.66832 3.55263 8.77461 3.50251 8.89155L2.04044 12.303C1.9599 12.491 2.00189 12.709 2.14646 12.8536C2.29103 12.9981 2.50905 13.0401 2.69697 12.9596L6.10847 11.4975C6.2254 11.4474 6.3317 11.3754 6.42166 11.2855L13.8536 3.85355C14.0488 3.65829 14.0488 3.34171 13.8536 3.14645L11.8536 1.14645ZM4.42166 9.28547L11.5 2.20711L12.7929 3.5L5.71455 10.5784L4.21924 11.2192L3.78081 10.7808L4.42166 9.28547Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                        Edit Details
+                                    </a>
                                 </li>
+                                <hr class="my-2 border-gray-200">
+                                <!-- Delete Employee -->
                                 <li>
-                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Overtime</a>
+                                    <a href="{% url 'delete_employee' employee.id_number %}" class="px-4 py-2 hover:bg-gray-100 flex items-center text-red-600">
+                                        <svg class="mr-2" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 1C5.22386 1 5 1.22386 5 1.5C5 1.77614 5.22386 2 5.5 2H9.5C9.77614 2 10 1.77614 10 1.5C10 1.22386 9.77614 1 9.5 1H5.5ZM3 3.5C3 3.22386 3.22386 3 3.5 3H5H10H11.5C11.7761 3 12 3.22386 12 3.5C12 3.77614 11.7761 4 11.5 4H11V12C11 12.5523 10.5523 13 10 13H5C4.44772 13 4 12.5523 4 12V4L3.5 4C3.22386 4 3 3.77614 3 3.5ZM5 4H10V12H5V4Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                                        Delete Employee
+                                    </a>
                                 </li>
                             </ul>
                         </div>                                          
                     </div>
-                </td>                
+                </td>               
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dropdownButtons = document.querySelectorAll('[id^="dropdownToggleButton"]');
-        dropdownButtons.forEach(button => {
-            const id = button.id.replace('dropdownToggleButton', '');
-            const dropdownMenu = document.getElementById(`dropdownMenu-${id}`);
-
-            button.addEventListener('click', function() {
-                dropdownMenu.classList.toggle('show');
-            });
-
-            document.addEventListener('click', function(event) {
-                if (!button.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                    dropdownMenu.classList.remove('show');
-                }
-            });
-        });
-    });
-</script>
 
 {% endblock %}
