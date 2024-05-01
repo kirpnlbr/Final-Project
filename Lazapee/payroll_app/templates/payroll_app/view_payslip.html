@@ -3,8 +3,36 @@
 {% load static %}
 {% block content %}
 
-<h1>
-    Hello world!4
-</h1>
+<div>
+    <h2>General Payslip Details</h2>
+    <p>Name: {{ payslip.employee.name }}</p>
+    <p>ID Number: {{ payslip.id_number }}</p>
+    <p>Date: {{ payslip.month|title }} {{ payslip.year }}</p>
+    <p>Payslip ID: {{ payslip.id }}</p>
+</div>
+
+<div>
+    <h2>Earnings</h2>
+    <p>Rate: {{ payslip.rate }}</p>
+    <p>Allowances: {{ payslip.earnings_allowance }}</p>
+    <p>Overtime Pay: {{ payslip.overtime }}</p>
+</div>
+
+<div>
+    <h2>Deductions</h2>
+    {% if payslip.pay_cycle == '1' %}
+        <p>Pag-ibig: {{ payslip.pag_ibig }}</p>
+    {% else %}
+        <p>Philhealth: {{ payslip.deductions_health }}</p>
+        <p>SSS: {{ payslip.sss }}</p>
+    {% endif %}
+    <p>Tax: {{ payslip.deductions_tax }}</p>
+</div>
+
+<div>
+    <h2>Net Pay</h2>
+    <p><strong>{{ payslip.total_pay }}</strong></p>
+</div>
+
 
 {% endblock %}
