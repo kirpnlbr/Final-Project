@@ -35,7 +35,7 @@
                     Allowance
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Overtime
+                    Overtime Pay
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Options
@@ -43,69 +43,71 @@
             </tr>
         </thead>
         <tbody>
+            {% for employee in employees %}
             <tr class="odd:bg-white even:bg-gray-50 border-b">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    Tyler Durden
+                    {{ employee.name }}
                 </th>
                 <td class="px-6 py-4">
-                    224987
+                    {{ employee.id_number }}
                 </td>
                 <td class="px-6 py-4">
-                    30,000
+                    {{ employee.rate | floatformat:2 }}
                 </td>
                 <td class="px-6 py-4">
-                    500
+                    {{ employee.allowance | floatformat:2 }}
                 </td>
                 <td class="px-6 py-4">
-                    0
+                    {{ employee.overtime_pay | floatformat:2 }}
                 </td>
                 <td class="px-6 py-4">
                     <div class="relative">
-                        <button id="dropdownToggleButton" aria-haspopup="true" aria-expanded="false" class="flex items-center font-medium bg-gray-50 border border-gray-200 px-4 py-2 rounded-md dropdown-toggle">
-                            Edit
+                        <button id="dropdownToggleButton-{{ employee.id_number }}" aria-haspopup="true" aria-expanded="false" class="flex items-center font-medium bg-gray-50 border border-gray-200 px-4 py-2 rounded-md dropdown-toggle">
+                            Options
                             <svg class="ml-1.5 -mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4 6H11L7.5 10.5L4 6Z" fill="currentColor"></path>
                             </svg>
                         </button>
                         <!-- Dropdown menu -->
-                        <div id="dropdownMenu" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 dropdown-menu">
+                        <div id="dropdownMenu-{{ employee.id_number }}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 dropdown-menu">
                             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconHorizontalButton">
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                            </li>
+                                <li>
+                                    <a href="{% url 'update_employee' employee.id_number %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'delete_employee' employee.id_number %}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Overtime</a>
+                                </li>
                             </ul>
-                            <div class="py-2">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Separated link</a>
-                            </div>
                         </div>                                          
                     </div>
                 </td>                
             </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
-    
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var dropdownButton = document.getElementById('dropdownToggleButton');
-        var dropdownMenu = document.getElementById('dropdownMenu');
+        const dropdownButtons = document.querySelectorAll('[id^="dropdownToggleButton"]');
+        dropdownButtons.forEach(button => {
+            const id = button.id.replace('dropdownToggleButton', '');
+            const dropdownMenu = document.getElementById(`dropdownMenu-${id}`);
 
-        dropdownButton.addEventListener('click', function() {
-            dropdownMenu.classList.toggle('show');
-        });
+            button.addEventListener('click', function() {
+                dropdownMenu.classList.toggle('show');
+            });
 
-        document.addEventListener('click', function(event) {
-            if (!dropdownButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove('show');
-            }
+            document.addEventListener('click', function(event) {
+                if (!button.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
         });
     });
-</script> 
+</script>
 
 {% endblock %}

@@ -13,19 +13,27 @@
 
 <!-- Payroll Creation -->
 <div class="rounded-md bg-white border border-gray-200 sm:p-6 md:p-8 mb-10">
-    <form class="space-y-6" action="#">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <form class="space-y-6" action="{% url 'create_payslip' %}" method="POST">
+        {% csrf_token %}
         <h2 class="text-lg font-medium">Payroll Creation</h2>
-        <!-- Payroll For -->
         <div>
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Payroll for</label>
-            <select id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required>
-                <option disabled selected>Select employee...</option>
-                <option value="all_employees"> Employees</option>
-                <option value="every_employee_ID">Every employee ID number</option>
+            <select name="id_number" id="id_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5">
+                <option value="all_employees">All Employees</option>
+                {% for employee in employees %}
+                    <option value="{{ employee.id_number }}">{{ employee.id_number }}</option>
+                {% endfor %}
             </select>
         </div>
         <hr class="my-6 border-gray-200">
-        <!-- Month -->
         <div>
             <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
             <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required>
@@ -42,24 +50,23 @@
                 <option value="october">October</option>
                 <option value="november">November</option>
                 <option value="december">December</option>
-            </select> 
+            </select>
         </div>
-        <!-- Year -->
         <div>
             <label for="year" class="block mb-2 text-sm font-medium text-gray-900">Year</label>
             <input type="number" name="year" id="year" min="1900" max="2024" placeholder="YYYY" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required />
         </div>
-        <!-- Cycle -->
         <div class="pb-4">
             <label for="cycle" class="block mb-2 text-sm font-medium text-gray-900">Cycle</label>
             <select id="cycle" name="cycle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required>
                 <option disabled selected>Select cycle...</option>
-                <option value="all_employees">1</option>
-                <option value="every_employee_ID">2</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
             </select>
         </div>
         <button type="submit" class="w-full text-white bg-black hover:bg-[#1B1B1B] font-medium rounded-md text-sm px-5 py-3 text-center">Submit</button>
     </form>
+    
 </div>
 
 <!-- Payslips Summary -->
@@ -86,28 +93,30 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="odd:bg-white even:bg-gray-50 border-b">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                    224987
-                </th>
-                <td class="px-6 py-4">
-                    May 1, 2024
-                </td>
-                <td class="px-6 py-4">
-                    1
-                </td>
-                <td class="px-6 py-4">
-                    0
-                </td>
-                <td class="px-6 py-4">
-                    <div class="relative">
-                        <button class="flex items-center font-medium bg-gray-50 border border-gray-200 px-4 py-2 rounded-md">
-                            View
-                        </button>                                          
-                    </div>
-                </td>                
-            </tr>
-        </tbody>
+            {% for payslip in payslips %}
+                <tr class="odd:bg-white even:bg-gray-50 border-b">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        {{ payslip.employee.id_number }}
+                    </th>
+                    <td class="px-6 py-4">
+                        {{ payslip.month }} {{ payslip.year }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ payslip.cycle }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ payslip.total_pay }}
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="relative">
+                            <button class="flex items-center font-medium bg-gray-50 border border-gray-200 px-4 py-2 rounded-md">
+                                View
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>        
     </table>
 </div>
 
