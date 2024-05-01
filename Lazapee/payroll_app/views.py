@@ -201,5 +201,17 @@ def create_payslip(request):
 def update_employee(request):
     return render(request, 'payroll_app/update_employee.html')
 
-def view_payslip(request):
-    return render(request, 'payroll_app/view_payslip.html')
+def view_payslip(request, payslip_id):
+    payslip = get_object_or_404(Payslip, id=payslip_id)
+    context = {
+        'payslip': payslip,
+    }
+    return render(request, 'payroll_app/view_payslip.html', context)
+
+def delete_payslip(request, payslip_id):
+    payslip = get_object_or_404(Payslip, id=payslip_id)
+    
+    if request.method == 'POST':
+        payslip.delete()
+        messages.success(request, 'Payslip deleted successfully.')
+        return redirect('payslips')
