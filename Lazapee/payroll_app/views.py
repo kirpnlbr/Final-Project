@@ -147,12 +147,11 @@ def create_payslip(request):
             rate = employee.rate
             allowances = employee.allowance or 0
             overtime = employee.overtime_pay or 0
-            pag_ibig = 0
+            pag_ibig = 100 if pay_cycle == '1' else 0
             deductions_health = 0
             sss = 0
 
             if pay_cycle == '1':
-                pag_ibig = 100
                 taxable_amount = (rate / 2) + allowances + overtime - pag_ibig
                 tax = taxable_amount * 0.2
                 total_pay = taxable_amount - tax
@@ -167,15 +166,9 @@ def create_payslip(request):
                 messages.error(request, "Invalid pay cycle value.")
                 continue
 
-            existing_payslip = Payslip.objects.filter(
-                id_number=employee,
-                month=month,
-                year=year,
-                pay_cycle=pay_cycle
-            ).first()
+            if id_number==employee.id_number:
+                messages.error(request, f"Payslip already exists for Employee ID {employee.id_number}.")
 
-            if existing_payslip:
-                messages.error(request, f"Payslip already exists for Employee ID {employee.id_number} in {month}/{year} cycle {pay_cycle}.")
                 continue
 
             payslip = Payslip(
@@ -200,6 +193,7 @@ def create_payslip(request):
         return redirect('payslips')
     
     return redirect('payslips')
+
 
 
 
