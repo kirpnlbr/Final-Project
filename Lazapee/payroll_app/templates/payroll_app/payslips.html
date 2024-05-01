@@ -12,13 +12,13 @@
 </div>
 
 <!-- Payroll Creation -->
-<div class="rounded-md bg-white border border-gray-200 sm:p-6 md:p-8">
+<div class="rounded-md bg-white border border-gray-200 sm:p-6 md:p-8 mb-10">
     <form class="space-y-6" action="#">
         <h2 class="text-lg font-medium">Payroll Creation</h2>
         <!-- Payroll For -->
         <div>
             <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Payroll for</label>
-            <select id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required >
+            <select id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required>
                 <option disabled selected>Select employee...</option>
                 <option value="all_employees"> Employees</option>
                 <option value="every_employee_ID">Every employee ID number</option>
@@ -28,7 +28,7 @@
         <!-- Month -->
         <div>
             <label for="month" class="block mb-2 text-sm font-medium text-gray-900">Month</label>
-            <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required >
+            <select id="month" name="month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required>
                 <option disabled selected>Select a month...</option>
                 <option value="january">January</option>
                 <option value="february">February</option>
@@ -52,7 +52,7 @@
         <!-- Cycle -->
         <div class="pb-4">
             <label for="cycle" class="block mb-2 text-sm font-medium text-gray-900">Cycle</label>
-            <select id="cycle" name="cycle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required >
+            <select id="cycle" name="cycle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5" required>
                 <option disabled selected>Select cycle...</option>
                 <option value="all_employees">1</option>
                 <option value="every_employee_ID">2</option>
@@ -63,5 +63,52 @@
 </div>
 
 <!-- Payslips Summary -->
+<div class="relative overflow-x-auto rounded-md bg-white border border-gray-200 sm:p-6 md:p-8 mb-16">
+    <h2 class="text-lg font-medium mb-6">Payslips Summary</h2>
+    <table class="w-full text-sm text-left text-[#71717A]">
+        <thead class="text-xs text-[#71717A] uppercase border-b">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    ID Number
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Cycle
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Total Pay
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Options
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                    224987
+                </th>
+                <td class="px-6 py-4">
+                    May 1, 2024
+                </td>
+                <td class="px-6 py-4">
+                    1
+                </td>
+                <td class="px-6 py-4">
+                    0
+                </td>
+                <td class="px-6 py-4">
+                    <div class="relative">
+                        <button class="flex items-center font-medium bg-gray-50 border border-gray-200 px-4 py-2 rounded-md">
+                            View
+                        </button>                                          
+                    </div>
+                </td>                
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}
