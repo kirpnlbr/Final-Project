@@ -62,14 +62,14 @@
                 </td>
                 <td class="px-6 py-4">
                     <div class="relative">
-                        <button onclick="toggleDropdown()" class="flex items-center bg-gray-50 border border-gray-200 px-4 py-2 rounded-md text-gray-900">
+                        <button onclick="toggleDropdown('{{ employee.id_number }}')" class="flex items-center bg-gray-50 border border-gray-200 px-4 py-2 rounded-md text-gray-900">
                             Options
                             <svg class="ml-1.5 -mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M4 6H11L7.5 10.5L4 6Z" fill="currentColor"></path>
                             </svg>
                         </button>
                         <!-- Dropdown menu -->
-                        <div id="dropdownMenu" class="absolute z-50 hidden bg-white divide-y border mt-1.5 border-gray-200 divide-gray-100 rounded-lg shadow-sm w-44">
+                        <div id="dropdownMenu-{{ employee.id_number }}" class="absolute z-50 hidden bg-white divide-y border mt-1.5 border-gray-200 divide-gray-100 rounded-lg shadow-sm w-44 bottom-auto top-full">
                             <ul class="py-2 text-sm text-gray-900">
                                 <!-- Add Overtime -->
                                 <li>
