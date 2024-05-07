@@ -17,12 +17,12 @@
 </div>
 
 <!-- Payslip table -->
-<div class="rounded-lg border border-gray-200 p-8">
+<div class="rounded-lg border border-gray-200 px-8 py-10">
     <!-- Title -->
-    <span class="text-lg font-semibold">{{ payslip.id_number.name }}'s Payslip Details</span>
-    <hr class="mt-2" />
+    <span class="text-xl font-semibold">{{ payslip.id_number.name }}'s Payslip Details</span>
+    <hr class="mt-2.5" />
     <!-- Employee Details -->
-    <div class="flex flex-row justify-between mt-4">
+    <div class="flex flex-row justify-between mt-4 text-[#71717A]">
         <div>
             <p>Name: {{ payslip.id_number.name }}</p>
         </div>
@@ -30,7 +30,7 @@
             <p>Date: {{ payslip.month|title }} {{ payslip.date_range }}, {{ payslip.year }}</p>
         </div>
     </div>
-    <div class="flex flex-row justify-between mb-8">
+    <div class="flex flex-row justify-between mb-10 text-[#71717A]">
         <div>
             <p>ID Number: {{ payslip.id_number }}</p>
         </div>
@@ -48,7 +48,7 @@
         </div>
     </div>
     <!-- Base Pay -->
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between text-[#71717A]">
         <div>
             <h3 class="ml-2">Base Pay</h3>
         </div>
@@ -57,7 +57,7 @@
         </div>
     </div>
     <!-- Allowances -->
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between text-[#71717A]">
         <div>
             <h3 class="ml-2">Allowances</h3>
         </div>
@@ -66,7 +66,7 @@
         </div>
     </div>
     <!-- Overtime -->
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between text-[#71717A]">
         <div>
             <h3 class="ml-2">Overtime</h3>
         </div>
@@ -76,11 +76,11 @@
     </div>
     <hr class="my-4" />
     <!-- Gross Pay -->
-    <div class="flex flex-row justify-between font-bold">
+    <div class="flex flex-row justify-between">
         <div>
-            <h2>GROSS PAY</h2>
+            <h2 class="font-bold">GROSS PAY</h2>
         </div>
-        <div class="mr-64">
+        <div class="mr-64 text-[#71717A]">
             <h2>PHP {{ gross_pay }}</h2>
         </div>
     </div>
@@ -92,9 +92,9 @@
         </div>
     </div>
     <!-- W/ Holding Tax -->
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between text-[#71717A]">
         <div>
-            <h3 class="ml-2 uppercase">W/holding Tax</h3>
+            <h3 class="ml-2 uppercase ">W/holding Tax</h3>
         </div>
         <div class="mr-96">
             <p>{{ payslip.deductions_tax }}</p>
@@ -102,7 +102,7 @@
     </div>
     {% if payslip.pay_cycle == '1' %}
     <!-- Pag-ibig -->
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between text-[#71717A]">
         <div>
             <h3 class="ml-2 uppercase">Pag-ibig</h3>
         </div>
@@ -112,7 +112,7 @@
     </div>
     {% else %}
     <!-- Philhealth -->
-    <div class="flex flex-row justify-between">
+    <div class="flex flex-row justify-between text-[#71717A]">
         <div>
             <h3 class="ml-2 uppercase">Philhealth</h3>
         </div>
@@ -121,7 +121,7 @@
         </div>
     </div>
     <!-- SSS -->
-    <div class="flex flex-row justify-between mb-8">
+    <div class="flex flex-row justify-between mb-8 text-[#71717A]">
         <div>
             <h3 class="ml-2">SSS</h3>
         </div>
@@ -131,12 +131,12 @@
     </div>
     {% endif %}
     <!-- Total Deductions -->
-    <div class="flex flex-row justify-between font-bold">
+    <div class="flex flex-row justify-between">
         <div>
-            <h2>TOTAL DEDUCTIONS</h2>
+            <h2 class="font-semibold">TOTAL DEDUCTIONS</h2>
         </div>
         <div>
-            <h2 class="mr-64">PHP {{ total_deductions }}</h2>
+            <h2 class="mr-64 text-[#71717A]">PHP {{ total_deductions }}</h2>
         </div>
     </div>
     <hr class="my-6" />
@@ -146,7 +146,7 @@
             <h2 class="font-bold">NET PAY:</h2>
         </div>
         <div>
-            <p class="mr-64">PHP {{ payslip.total_pay }}</p>
+            <p class="mr-64 text-[#71717A]">PHP {{ payslip.total_pay }}</p>
         </div>
     </div>
 </div>
