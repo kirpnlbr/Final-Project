@@ -94,30 +94,30 @@ def delete_employee(request, id_number):
 
 def add_overtime(request, id_number):
     employee = Employee.objects.filter(id_number=id_number).first()
-    
+
     if not employee:
         context = {'error': 'Employee not found.'}
-        return render(request, 'payroll_app/add_overtime.html', context)
+        return render(request, 'payroll_app/employees.html', context)
 
     if request.method == 'POST':
-        overtime_hours = request.POST.get('overtime_hours')
-        overtime_rate = request.POST.get('overtime_rate')
-        
         try:
-            overtime_hours = float(overtime_hours)
-            overtime_rate = float(overtime_rate)
+            overtime_hours = float(request.POST.get('overtime_hours'))
+            overtime_pay = (employee.rate/160) * 1.5 * overtime_hours
+
+            if employee.overtime_pay is None:
+                employee.overtime_pay = 0.0
+
+            employee.overtime_pay += overtime_pay
+            employee.save()
+            return redirect(reverse('employees'))
         except ValueError:
-            context = {'error': 'Invalid input for overtime hours or rate.'}
-            return render(request, 'payroll_app/add_overtime.html', context)
-        
-        overtime_pay = overtime_hours * overtime_rate
-        employee.overtime_pay += overtime_pay
-        employee.save()
-        
-        return redirect('employees')
-    
-    context = {'employee': employee}
-    return render(request, 'payroll_app/add_overtime.html', context)
+            context = {'error': 'Invalid input for overtime hours.'}
+            return render(request, 'payroll_app/employees.html', context)
+
+    context = {'employees': Employee.objects.all()}
+    return render(request, 'payroll_app/employees.html', context)
+
+
 
 
 def payslips(request):
@@ -205,9 +205,6 @@ def create_payslip(request):
     return redirect('payslips')
 
 
-def update_employee(request):
-    return render(request, 'payroll_app/update_employee.html')
-
 def view_payslip(request, payslip_id):
     payslip = get_object_or_404(Payslip, id=payslip_id)
 
@@ -232,3 +229,34 @@ def delete_payslip(request, payslip_id):
         payslip.delete()
         messages.success(request, 'Payslip deleted successfully.')
         return redirect('payslips')
+    
+
+
+def update_employee(request, id_number):
+    employee = get_object_or_404(Employee, id_number=id_number)
+    
+    if request.method == 'POST':
+        employee.name = request.POST['name']
+        employee.id_number = request.POST['id_number']
+        employee.rate = request.POST['rate']
+        employee.allowance = request.POST.get('allowance', 0)
+        
+        employee.save()
+        
+        return redirect('employees')
+
+    context = {
+        'employee': employee,
+    }
+    return render(request, 'payroll_app/update_employee.html', context)
+
+def delete_employee(request, id_number):
+    if request.method == 'POST':
+        employee = Employee.objects.filter(id_number=id_number).first()
+        
+        if employee:
+            employee.delete()
+        
+        return redirect(reverse('employees'))
+
+    return render(request, 'payroll_app/employees.html', {'error': 'Invalid request method'})
