@@ -5,9 +5,9 @@
 
 <div>
     <h2>General Payslip Details</h2>
-    <p>Name: {{ payslip.employee.name }}</p>
+    <p>Name: {{ payslip.id_number.name }}</p>
     <p>ID Number: {{ payslip.id_number }}</p>
-    <p>Date: {{ payslip.month|title }} {{ payslip.year }}</p>
+    <p>Date: {{ payslip.month|title }} {{ payslip.date_range }}, {{ payslip.year }}</p>
     <p>Payslip ID: {{ payslip.id }}</p>
 </div>
 
