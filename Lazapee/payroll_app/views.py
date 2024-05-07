@@ -93,29 +93,35 @@ def delete_employee(request, id_number):
     return render(request, 'payroll_app/delete_employee.html', context)
 
 def add_overtime(request, id_number):
-    employee = Employee.objects.filter(id_number=id_number).first()
-
-    if not employee:
-        context = {'error': 'Employee not found.'}
-        return render(request, 'payroll_app/employees.html', context)
+    employee = get_object_or_404(Employee, id_number=id_number)
 
     if request.method == 'POST':
+        overtime_hours_input = request.POST.get('overtime_hours')
+        
+        if overtime_hours_input is None or overtime_hours_input.strip() == '':
+            messages.error(request, 'Error: Overtime hours cannot be blank.')
+            return redirect(reverse('employees'))
+        
         try:
-            overtime_hours = float(request.POST.get('overtime_hours'))
-            overtime_pay = (employee.rate/160) * 1.5 * overtime_hours
+            overtime_hours = float(overtime_hours_input)
+            overtime_pay = (employee.rate / 160) * 1.5 * overtime_hours
 
             if employee.overtime_pay is None:
                 employee.overtime_pay = 0.0
 
             employee.overtime_pay += overtime_pay
             employee.save()
-            return redirect(reverse('employees'))
+
+            messages.success(request, 'Overtime added successfully.')
         except ValueError:
-            context = {'error': 'Invalid input for overtime hours.'}
-            return render(request, 'payroll_app/employees.html', context)
+            messages.error(request, 'Error: Please enter a valid number for overtime hours.')
+
+        return redirect(reverse('employees'))
 
     context = {'employees': Employee.objects.all()}
     return render(request, 'payroll_app/employees.html', context)
+
+
 
 
 
