@@ -104,7 +104,7 @@
                         {{ payslip.id_number.id_number }}
                     </th>
                     <td class="px-6 py-4">
-                        {{ payslip.month|title }} {{ payslip.year }}
+                        {{ payslip.month|title }} {{ payslip.date_range }}, {{ payslip.year }}
                     </td>
                     <td class="px-6 py-4">
                         {{ payslip.pay_cycle }}
@@ -113,25 +113,19 @@
                         {{ payslip.total_pay }}
                     </td>
                     <td class="px-6 py-4 flex items-center space-x-2">
-                        <div>
-                            <a href="{% url 'view_payslip' payslip.id %}" class="w-auto flex text-gray-900 items-center bg-gray-50 border border-gray-200 px-4 py-2 rounded-md hover:bg-gray-100">
-                                View
-                            </a>
-                        </div>
-                        <div>
-                            <form action="{% url 'delete_payslip' payslip.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this payslip?')">
-                                {% csrf_token %}
-                                <button type="submit" class="w-auto flex items-center bg-red-500 border border-red-400 text-white px-4 py-2 rounded-md hover:bg-red-600 -mb-3.5">
-                                    Delete
-                                </button>                                                                          
-                            </form>
-                        </div>
-                    </td>                                        
+                        <a href="{% url 'view_payslip' payslip.id %}" class="w-auto flex items-center font-medium bg-gray-50 border border-gray-200 px-4 py-2 rounded-md hover:bg-gray-100">
+                            View
+                        </a>
+                        <form action="{% url 'delete_payslip' payslip.id %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this payslip?')" class="w-auto flex items-center">
+                            {% csrf_token %}
+                            <button type="submit" class="w-auto flex items-center font-medium bg-red-500 border text-black border-gray-200 px-4 py-2 rounded-md hover:bg-red-100">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
-           
     </table>
 </div>
-
 {% endblock %}

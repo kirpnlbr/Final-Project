@@ -131,75 +131,78 @@ def payslips(request):
     return render(request, 'payroll_app/payslips.html', context)
 
 def create_payslip(request):
-  if request.method == 'POST':
-    month = request.POST.get('month')
-    year = request.POST.get('year')
-    pay_cycle = request.POST.get('cycle')
-    id_number = request.POST.get('id_number')
+    if request.method == 'POST':
+        month = request.POST.get('month')
+        year = request.POST.get('year')
+        pay_cycle = request.POST.get('cycle')
+        id_number = request.POST.get('id_number')
 
-    if id_number == "all_employees":
-      employees = Employee.objects.all()
-    else:
-      employee = get_object_or_404(Employee, id_number=id_number)
-      employees = [employee]
+        if id_number == 'all_employees':
+            employees = Employee.objects.all()
+        else:
+            employee = get_object_or_404(Employee, id_number=id_number)
+            employees = [employee]
 
-    for employee in employees:
-      rate = employee.rate
-      allowances = employee.allowance or 0
-      overtime = employee.overtime_pay or 0
-      pag_ibig = 100 if pay_cycle == '1' else 0
-      deductions_health = 0
-      sss = 0
+        for employee in employees:
+            existing_payslip = Payslip.objects.filter(
+                id_number=employee
+            ).first()
 
-      if pay_cycle == '1':
-        taxable_amount = (rate / 2) + allowances + overtime - pag_ibig
-        tax = taxable_amount * 0.2
-        total_pay = taxable_amount - tax
-      elif pay_cycle == '2':
-        philhealth = rate * 0.04
-        sss = rate * 0.045
-        deductions_health = philhealth
-        taxable_amount = (rate / 2) + allowances + overtime - deductions_health - sss
-        tax = taxable_amount * 0.2
-        total_pay = taxable_amount - tax
-      else:
-        messages.error(request, "Invalid pay cycle value.")
-        continue
+            if existing_payslip:
+                messages.error(request, f"Payslip already exists for Employee ID {employee.id_number}.")
+                continue
 
-      # Check for existing payslips before creating a new one
-      existing_payslip = Payslip.objects.filter(
-          id_number=employee,
-          month=month,
-          year=year,
-          pay_cycle=pay_cycle
-      ).first()
+            rate = employee.rate
+            allowances = employee.allowance or 0
+            overtime = employee.overtime_pay or 0
+            pag_ibig = 100 if pay_cycle == '1' else 0
+            deductions_health = 0
+            sss = 0
 
-      if existing_payslip:
-        messages.error(request, f"Payslip already exists for Employee ID {employee.id_number} for month {month}-{year}, pay cycle {pay_cycle}.")
-        continue
+            if pay_cycle == '1':
+                taxable_amount = (rate / 2) + allowances + overtime - pag_ibig
+                tax = taxable_amount * 0.2
+                total_pay = taxable_amount - tax
+            elif pay_cycle == '2':
+                philhealth = rate * 0.04
+                sss = rate * 0.045
+                deductions_health = philhealth
+                taxable_amount = (rate / 2) + allowances + overtime - deductions_health - sss
+                tax = taxable_amount * 0.2
+                total_pay = taxable_amount - tax
 
-      payslip = Payslip(
-          id_number=employee,
-          month=month,
-          year=year,
-          pay_cycle=pay_cycle,
-          rate=rate,
-          earnings_allowance=allowances,
-          deductions_tax=tax,
-          pag_ibig=pag_ibig,
-          deductions_health=deductions_health,
-          sss=sss,
-          overtime=overtime,
-          total_pay=total_pay,
-      )
-      payslip.save()
+            if pay_cycle == '1':
+                date_range = "1-15"
+            elif pay_cycle == '2':
+                months_with_30_days = ['April', 'June', 'September', 'November']
+                if month.title() in months_with_30_days:
+                    date_range = "16-30"
+                elif month.title() == 'February':
+                    date_range = "16-28"
+                else:
+                    date_range = "16-31"
 
-      employee.overtime_pay = 0
-      employee.save()
+            payslip = Payslip(
+                id_number=employee,
+                month=month,
+                year=year,
+                pay_cycle=pay_cycle,
+                rate=rate,
+                earnings_allowance=allowances,
+                deductions_tax=tax,
+                pag_ibig=pag_ibig,
+                deductions_health=deductions_health,
+                sss=sss,
+                overtime=overtime,
+                total_pay=total_pay,
+                date_range=date_range
+            )
+            payslip.save()
+
+            employee.overtime_pay = 0
+            employee.save()
 
     return redirect('payslips')
-  
-  return redirect('payslips')
 
 
 def update_employee(request):
