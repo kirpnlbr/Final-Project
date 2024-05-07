@@ -27,7 +27,7 @@
     <!-- Table Headings -->
     <div class="flex flex-row justify-between font-bold mb-1">
         <div>
-            <h2>EARNINGS</h2>
+            <h2>EARNINGS:</h2>
         </div>
         <div class="mr-64">
             <h2>AMOUNT</h2>
@@ -74,7 +74,7 @@
     <!-- DEDUCTIONS -->
     <div class="flex flex-row justify-between font-bold">
         <div>
-            <h2>DEDUCTIONS</h2>
+            <h2>DEDUCTIONS:</h2>
         </div>
     </div>
     <!-- W/ Holding Tax -->
@@ -127,12 +127,12 @@
     </div>
     <hr class="my-6" />
     <!-- Net Pay -->
-    <div class="flex flex-row justify-between font-bold">
+    <div class="flex flex-row justify-between">
         <div>
-            <h2>NET PAY:</h2>
+            <h2 class="font-bold">NET PAY:</h2>
         </div>
         <div>
-            <h2 class="mr-64">PHP {{ payslip.total_pay }}</h2>
+            <p class="mr-64">PHP {{ payslip.total_pay }}</p>
         </div>
     </div>
 </div>
