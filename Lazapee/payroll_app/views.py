@@ -210,8 +210,18 @@ def update_employee(request):
 
 def view_payslip(request, payslip_id):
     payslip = get_object_or_404(Payslip, id=payslip_id)
+
+    gross_pay = payslip.rate + payslip.earnings_allowance + payslip.overtime
+    if payslip.pay_cycle == '1':
+        total_deductions = payslip.deductions_tax + payslip.pag_ibig
+    else:
+        total_deductions = payslip.deductions_tax + payslip.deductions_health + payslip.sss
+
+
     context = {
         'payslip': payslip,
+        'gross_pay': gross_pay,
+        'total_deductions': total_deductions,
     }
     return render(request, 'payroll_app/view_payslip.html', context)
 
