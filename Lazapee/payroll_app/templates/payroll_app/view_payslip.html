@@ -3,29 +3,123 @@
 {% load static %}
 {% block content %}
 
-<div>
-    <h2>General Payslip Details</h2>
-    <p>Name: {{ payslip.id_number.name }}</p>
-    <p>ID Number: {{ payslip.id_number }}</p>
-    <p>Date: {{ payslip.month|title }} {{ payslip.date_range }}, {{ payslip.year }}</p>
-    <p>Payslip ID: {{ payslip.id }}</p>
-</div>
-
-<div>
-    <h2>Earnings</h2>
-    <p>Rate: {{ payslip.rate }}</p>
-    <p>Allowances: {{ payslip.earnings_allowance }}</p>
-    <p>Overtime Pay: {{ payslip.overtime }}</p>
+<div class="rounded-lg border border-gray-200 p-8">
+    <!-- Title -->
+    <span class="text-lg font-semibold">{{ payslip.id_number.name }}'s Payslip Details</span>
+    <hr class="mt-2" />
+    <!-- Employee Details -->
+    <div class="flex flex-row justify-between mt-4">
+        <div>
+            <p>Name: {{ payslip.id_number.name }}</p>
+        </div>
+        <div>
+            <p>Date: {{ payslip.month|title }} {{ payslip.date_range }}, {{ payslip.year }}</p>
+        </div>
+    </div>
+    <div class="flex flex-row justify-between mb-8">
+        <div>
+            <p>ID Number: {{ payslip.id_number }}</p>
+        </div>
+        <div>
+            <p>Payslip ID: {{ payslip.id }}</p>
+        </div>
+    </div>
+    <!-- Table Headings -->
+    <div class="flex flex-row justify-between font-bold mb-1">
+        <div>
+            <h2>EARNINGS</h2>
+        </div>
+        <div class="mr-64">
+            <h2>AMOUNT</h2>
+        </div>
+    </div>
+    <!-- Base Pay -->
+    <div class="flex flex-row justify-between">
+        <div>
+            <h3 class="ml-2">Base Pay</h3>
+        </div>
+        <div class="mr-96">
+            <p>{{ payslip.rate }}</p>
+        </div>
+    </div>
+    <!-- Allowances -->
+    <div class="flex flex-row justify-between">
+        <div>
+            <h3 class="ml-2">Allowances</h3>
+        </div>
+        <div class="mr-96">
+            <p>{{ payslip.earnings_allowance }}</p>
+        </div>
+    </div>
+    <!-- Overtime -->
+    <div class="flex flex-row justify-between">
+        <div>
+            <h3 class="ml-2">Overtime</h3>
+        </div>
+        <div class="mr-96">
+            <p>{{ payslip.overtime }}</p>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <!-- Gross Pay -->
+    <div class="flex flex-row justify-between font-bold">
+        <div>
+            <h2>GROSS PAY</h2>
+        </div>
+        <div class="mr-64">
+            <h2>PHP </h2>
+        </div>
+    </div>
+    <hr class="my-4" />
+    <!-- DEDUCTIONS -->
+    <div class="flex flex-row justify-between font-bold">
+        <div>
+            <h2>DEDUCTIONS</h2>
+        </div>
+    </div>
+    <!-- W/ Holding Tax -->
+    <div class="flex flex-row justify-between">
+        <div>
+            <h3 class="ml-2 uppercase">W/holding Tax</h3>
+        </div>
+        <div class="mr-96">
+            <p>/</p>
+        </div>
+    </div>
+    {% if payslip.pay_cycle == '1' %}
+    <!-- Pag-ibig -->
+    <div class="flex flex-row justify-between">
+        <div>
+            <h3 class="ml-2 uppercase">Pag-ibig</h3>
+        </div>
+        <div class="mr-96">
+            <p>{{ payslip.pag_ibig }}</p>
+        </div>
+    </div>
+    {% else %}
+    <!-- Philhealth -->
+    <div class="flex flex-row justify-between">
+        <div>
+            <h3 class="ml-2 uppercase">Philhealth</h3>
+        </div>
+        <div class="mr-96">
+            <p>{{ payslip.deductions_health }}</p>
+        </div>
+    </div>
+    <!-- SSS -->
+    <div class="flex flex-row justify-between">
+        <div>
+            <h3 class="ml-2">SSS</h3>
+        </div>
+        <div class="mr-96">
+            <p>{{ payslip.sss }}</p>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 <div>
     <h2>Deductions</h2>
-    {% if payslip.pay_cycle == '1' %}
-        <p>Pag-ibig: {{ payslip.pag_ibig }}</p>
-    {% else %}
-        <p>Philhealth: {{ payslip.deductions_health }}</p>
-        <p>SSS: {{ payslip.sss }}</p>
-    {% endif %}
     <p>Tax: {{ payslip.deductions_tax }}</p>
 </div>
 
