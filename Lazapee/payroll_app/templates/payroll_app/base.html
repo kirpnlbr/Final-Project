@@ -1,76 +1,97 @@
 {% load static tailwind_tags %}
 
 <html lang="en">
-    <head>
-        <title>LAZAPEE Payroll</title>
-        <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-        <script src="{% static 'dropdown.js' %}"></script>
-        <style>
-            body {
-                font-family: "Instrument Sans", sans serif;
-            }
-        </style>
-        {% tailwind_css %}
-    </head>
-    <body>
-      {% if messages %}
-      <div class="flex items-center text-left p-4 border border-gray-200 bg-gray-50 text-gray-800 text-sm rounded-md mb-8">
-          <svg class="mr-2" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM8.24992 4.49999C8.24992 4.9142 7.91413 5.24999 7.49992 5.24999C7.08571 5.24999 6.74992 4.9142 6.74992 4.49999C6.74992 4.08577 7.08571 3.74999 7.49992 3.74999C7.91413 3.74999 8.24992 4.08577 8.24992 4.49999ZM6.00003 5.99999H6.50003H7.50003C7.77618 5.99999 8.00003 6.22384 8.00003 6.49999V9.99999H8.50003H9.00003V11H8.50003H7.50003H6.50003H6.00003V9.99999H6.50003H7.00003V6.99999H6.50003H6.00003V5.99999Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-          </svg>
-          <ul class="messages">
-              {% for message in messages %}
-                  <li class="{{ message.tags }}">{{ message }}</li>
-              {% endfor %}
-          </ul>
-      </div>
-      {% endif %}
 
-      <!-- Navbar -->
-      <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
-         <div class="px-3 py-4 lg:px-5 lg:pl-3">
-            <div class="flex items-center">
-               <!-- Lazapee -->
-               <div class="flex items-center justify-start rtl:justify-end h-full">
-                  <a href="/" class="flex ms-1 md:me-24">                      
-                     <span class="ml-2 text-xl font-semibold sm:text-2xl whitespace-nowrap">LAZAPEE Payroll</span>
-                  </a>
-               </div>
+<head>
+   <title>LAZAPEE Payroll</title>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet">
+   <script src="{% static 'dropdown.js' %}"></script>
+   <style>
+      body {
+         font-family: "Instrument Sans", sans serif;
+      }
+   </style>
+   {% tailwind_css %}
+</head>
+
+<body>
+   {% if messages %}
+   <div class="flex items-center text-left p-4 border border-gray-200 bg-gray-50 text-gray-800 text-sm rounded-md mb-8">
+      <svg class="mr-2" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+         <path
+            d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM8.24992 4.49999C8.24992 4.9142 7.91413 5.24999 7.49992 5.24999C7.08571 5.24999 6.74992 4.9142 6.74992 4.49999C6.74992 4.08577 7.08571 3.74999 7.49992 3.74999C7.91413 3.74999 8.24992 4.08577 8.24992 4.49999ZM6.00003 5.99999H6.50003H7.50003C7.77618 5.99999 8.00003 6.22384 8.00003 6.49999V9.99999H8.50003H9.00003V11H8.50003H7.50003H6.50003H6.00003V9.99999H6.50003H7.00003V6.99999H6.50003H6.00003V5.99999Z"
+            fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+      </svg>
+      <ul class="messages">
+         {% for message in messages %}
+         <li class="{{ message.tags }}">{{ message }}</li>
+         {% endfor %}
+      </ul>
+   </div>
+   {% endif %}
+
+   <!-- Navbar -->
+   <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200">
+      <div class="px-3 py-4 lg:px-5 lg:pl-3">
+         <div class="flex items-center">
+            <!-- Lazapee -->
+            <div class="flex items-center justify-start rtl:justify-end h-full">
+               <a href="/" class="flex ms-1 md:me-24">
+                  <span class="ml-2 text-xl font-semibold sm:text-2xl whitespace-nowrap">LAZAPEE Payroll</span>
+               </a>
             </div>
          </div>
-      </nav>
-
-      <!-- Sidebar -->
-      <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-24 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0" aria-label="Sidebar">
-         <div class="h-full px-4 pb-4 overflow-y-auto bg-white">
-            <ul class="space-y-2 font-medium">
-               <!-- Employees -->
-               <li>
-                  <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                     <svg class="flex-shrink-0 w-5 h-5 transition duration-75 group-hover:text-gray-900" aria-hidden="true" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.5 0.875C5.49797 0.875 3.875 2.49797 3.875 4.5C3.875 6.15288 4.98124 7.54738 6.49373 7.98351C5.2997 8.12901 4.27557 8.55134 3.50407 9.31167C2.52216 10.2794 2.02502 11.72 2.02502 13.5999C2.02502 13.8623 2.23769 14.0749 2.50002 14.0749C2.76236 14.0749 2.97502 13.8623 2.97502 13.5999C2.97502 11.8799 3.42786 10.7206 4.17091 9.9883C4.91536 9.25463 6.02674 8.87499 7.49995 8.87499C8.97317 8.87499 10.0846 9.25463 10.8291 9.98831C11.5721 10.7206 12.025 11.8799 12.025 13.5999C12.025 13.8623 12.2376 14.0749 12.5 14.0749C12.7623 14.075 12.975 13.8623 12.975 13.6C12.975 11.72 12.4778 10.2794 11.4959 9.31166C10.7244 8.55135 9.70025 8.12903 8.50625 7.98352C10.0187 7.5474 11.125 6.15289 11.125 4.5C11.125 2.49797 9.50203 0.875 7.5 0.875ZM4.825 4.5C4.825 3.02264 6.02264 1.825 7.5 1.825C8.97736 1.825 10.175 3.02264 10.175 4.5C10.175 5.97736 8.97736 7.175 7.5 7.175C6.02264 7.175 4.825 5.97736 4.825 4.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-                     <span class="ms-3">Employees</span>
-                  </a>
-               </li>
-               <!-- Payslip -->
-               <li>
-                  <a href="{% url 'payslips' %}" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
-                     <svg class="flex-shrink-0 w-5 h-5 transition duration-75 group-hover:text-gray-900" aria-hidden="true" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 2.5C3 2.22386 3.22386 2 3.5 2H9.08579C9.21839 2 9.34557 2.05268 9.43934 2.14645L11.8536 4.56066C11.9473 4.65443 12 4.78161 12 4.91421V12.5C12 12.7761 11.7761 13 11.5 13H3.5C3.22386 13 3 12.7761 3 12.5V2.5ZM3.5 1C2.67157 1 2 1.67157 2 2.5V12.5C2 13.3284 2.67157 14 3.5 14H11.5C12.3284 14 13 13.3284 13 12.5V4.91421C13 4.51639 12.842 4.13486 12.5607 3.85355L10.1464 1.43934C9.86514 1.15804 9.48361 1 9.08579 1H3.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5C4 4.77614 4.22386 5 4.5 5H7.5C7.77614 5 8 4.77614 8 4.5C8 4.22386 7.77614 4 7.5 4H4.5ZM4.5 7C4.22386 7 4 7.22386 4 7.5C4 7.77614 4.22386 8 4.5 8H10.5C10.7761 8 11 7.77614 11 7.5C11 7.22386 10.7761 7 10.5 7H4.5ZM4.5 10C4.22386 10 4 10.2239 4 10.5C4 10.7761 4.22386 11 4.5 11H10.5C10.7761 11 11 10.7761 11 10.5C11 10.2239 10.7761 10 10.5 10H4.5Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
-                     </svg>
-                     <span class="flex-1 ms-3 whitespace-nowrap">Payslips</span>
-                  </a>
-               </li>
-            </ul>
-         </div>
-      </aside>
-
-      <!-- Main --> 
-      <div class="py-8 px-12 sm:ml-64">
-         <div class="p-4 mt-16">
-            {% block content %}
-            {% endblock %}
-         </div>
       </div>
-    </body>
+   </nav>
+
+   <!-- Sidebar -->
+   <aside id="logo-sidebar"
+      class="fixed top-0 left-0 z-40 w-64 h-screen pt-24 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 flex flex-col justify-between"
+      aria-label="Sidebar">
+      <div class="h-full px-4 pb-4 overflow-y-auto bg-white">
+         <ul class="space-y-2 font-medium">
+            <!-- Employees -->
+            <li>
+               <a href="/" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                  <svg class="flex-shrink-0 w-5 h-5 transition duration-75 group-hover:text-gray-900" aria-hidden="true"
+                     viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path
+                        d="M7.5 0.875C5.49797 0.875 3.875 2.49797 3.875 4.5C3.875 6.15288 4.98124 7.54738 6.49373 7.98351C5.2997 8.12901 4.27557 8.55134 3.50407 9.31167C2.52216 10.2794 2.02502 11.72 2.02502 13.5999C2.02502 13.8623 2.23769 14.0749 2.50002 14.0749C2.76236 14.0749 2.97502 13.8623 2.97502 13.5999C2.97502 11.8799 3.42786 10.7206 4.17091 9.9883C4.91536 9.25463 6.02674 8.87499 7.49995 8.87499C8.97317 8.87499 10.0846 9.25463 10.8291 9.98831C11.5721 10.7206 12.025 11.8799 12.025 13.5999C12.025 13.8623 12.2376 14.0749 12.5 14.0749C12.7623 14.075 12.975 13.8623 12.975 13.6C12.975 11.72 12.4778 10.2794 11.4959 9.31166C10.7244 8.55135 9.70025 8.12903 8.50625 7.98352C10.0187 7.5474 11.125 6.15289 11.125 4.5C11.125 2.49797 9.50203 0.875 7.5 0.875ZM4.825 4.5C4.825 3.02264 6.02264 1.825 7.5 1.825C8.97736 1.825 10.175 3.02264 10.175 4.5C10.175 5.97736 8.97736 7.175 7.5 7.175C6.02264 7.175 4.825 5.97736 4.825 4.5Z"
+                        fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="ms-3">Employees</span>
+               </a>
+            </li>
+            <!-- Payslip -->
+            <li>
+               <a href="{% url 'payslips' %}"
+                  class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 group">
+                  <svg class="flex-shrink-0 w-5 h-5 transition duration-75 group-hover:text-gray-900" aria-hidden="true"
+                     viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path
+                        d="M3 2.5C3 2.22386 3.22386 2 3.5 2H9.08579C9.21839 2 9.34557 2.05268 9.43934 2.14645L11.8536 4.56066C11.9473 4.65443 12 4.78161 12 4.91421V12.5C12 12.7761 11.7761 13 11.5 13H3.5C3.22386 13 3 12.7761 3 12.5V2.5ZM3.5 1C2.67157 1 2 1.67157 2 2.5V12.5C2 13.3284 2.67157 14 3.5 14H11.5C12.3284 14 13 13.3284 13 12.5V4.91421C13 4.51639 12.842 4.13486 12.5607 3.85355L10.1464 1.43934C9.86514 1.15804 9.48361 1 9.08579 1H3.5ZM4.5 4C4.22386 4 4 4.22386 4 4.5C4 4.77614 4.22386 5 4.5 5H7.5C7.77614 5 8 4.77614 8 4.5C8 4.22386 7.77614 4 7.5 4H4.5ZM4.5 7C4.22386 7 4 7.22386 4 7.5C4 7.77614 4.22386 8 4.5 8H10.5C10.7761 8 11 7.77614 11 7.5C11 7.22386 10.7761 7 10.5 7H4.5ZM4.5 10C4.22386 10 4 10.2239 4 10.5C4 10.7761 4.22386 11 4.5 11H10.5C10.7761 11 11 10.7761 11 10.5C11 10.2239 10.7761 10 10.5 10H4.5Z"
+                        fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
+                  </svg>
+                  <span class="flex-1 ms-3 whitespace-nowrap">Payslips</span>
+               </a>
+            </li>
+         </ul>
+      </div>
+      <!-- @2024 -->
+      <div class="px-5 pb-6 overflow-y-auto">
+         <span class="text-xs text-gray-400 font-light">&copy; 2024 KK. All rights reserved.</span>
+      </div>
+   </aside>
+
+   <!-- Main -->
+   <div class="py-8 px-12 sm:ml-64">
+      <div class="p-4 mt-16">
+         {% block content %}
+         {% endblock %}
+      </div>
+   </div>
+</body>
+
 </html>
