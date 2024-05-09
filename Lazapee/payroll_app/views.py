@@ -66,7 +66,7 @@ def update_employee(request, id_number):
 
         if float(rate) < 570:
                 messages.error(request, "You must pay your employees fair wages! Above minimum wage, please.")
-                return redirect('update_employee')
+                return redirect('update_employee', id_number=employee.id_number)
         
         if allowance is None:
                 allowance = 0.0
