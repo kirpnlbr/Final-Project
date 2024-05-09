@@ -23,6 +23,9 @@ def create_employee(request):
         rate = request.POST.get('rate')
         allowance = request.POST.get('allowance')
         
+        if allowance is None:
+                allowance = 0.0
+
         try:
             rate = float(rate)
             allowance = float(allowance) if allowance else None
@@ -34,7 +37,6 @@ def create_employee(request):
             messages.error(request, 'Employee with this ID number already exists.')
             return render(request, 'payroll_app/create_employee.html')
         
-
         
         Employee.objects.create(
             name=name,
@@ -58,6 +60,9 @@ def update_employee(request, id_number):
         rate = request.POST.get('rate')
         allowance = request.POST.get('allowance')
         
+        if allowance is None:
+                allowance = 0.0
+
         try:
             rate = float(rate)
             allowance = float(allowance) if allowance else None
@@ -117,12 +122,6 @@ def add_overtime(request, id_number):
 
     context = {'employees': Employee.objects.all()}
     return render(request, 'payroll_app/employees.html', context)
-
-
-
-
-
-
 
 def payslips(request):
     employees = Employee.objects.all()
@@ -239,26 +238,9 @@ def delete_payslip(request, payslip_id):
         payslip.delete()
         messages.success(request, 'Payslip deleted successfully.')
         return redirect('payslips')
-    
-
-
-def update_employee(request, id_number):
-    employee = get_object_or_404(Employee, id_number=id_number)
-    
-    if request.method == 'POST':
-        employee.name = request.POST['name']
-        employee.id_number = request.POST['id_number']
-        employee.rate = request.POST['rate']
-        employee.allowance = request.POST.get('allowance', 0)
-        
-        employee.save()
-        
-        return redirect('employees')
-
-    context = {
-        'employee': employee,
-    }
-    return render(request, 'payroll_app/update_employee.html', context)
+    else:
+        messages.error(request, 'Invalid request method.')
+        return redirect('payslips')
 
 def delete_employee(request, id_number):
     if request.method == 'POST':
