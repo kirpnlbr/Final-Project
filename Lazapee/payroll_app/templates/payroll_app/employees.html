@@ -76,10 +76,21 @@
                     {{ employee.rate | floatformat:2 }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ employee.allowance | default:0 }}
+                    {% if employee.allowance == 0 or employee.allowance is None %}
+                        0
+                    {% else %}
+                        {{ employee.allowance|floatformat:2 }}
+                    {% endif %}
                 </td>
+                
                 <td class="px-6 py-4">
-                    {{ employee.overtime_pay | default:0 | floatformat:2 }}
+                    {% if employee.overtime_pay == 0 or employee.overtime_pay is None %}
+                        0
+                    {% else %}
+                        {{ employee.overtime_pay|floatformat:2 }}
+                    {% endif %}
+                </td>                
+                </td>                
                 </td>
                 <td class="px-6 py-4">
                     <div class="relative">

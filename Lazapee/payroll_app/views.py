@@ -34,6 +34,8 @@ def create_employee(request):
             messages.error(request, 'Employee with this ID number already exists.')
             return render(request, 'payroll_app/create_employee.html')
         
+
+        
         Employee.objects.create(
             name=name,
             id_number=id_number,
@@ -92,11 +94,11 @@ def add_overtime(request, id_number):
 
     if request.method == 'POST':
         overtime_hours_input = request.POST.get('overtime_hours')
-        
+
         if overtime_hours_input is None or overtime_hours_input.strip() == '':
             messages.error(request, 'Error: Overtime hours cannot be blank.')
             return redirect(reverse('employees'))
-        
+
         try:
             overtime_hours = float(overtime_hours_input)
             overtime_pay = (employee.rate / 160) * 1.5 * overtime_hours
@@ -115,6 +117,7 @@ def add_overtime(request, id_number):
 
     context = {'employees': Employee.objects.all()}
     return render(request, 'payroll_app/employees.html', context)
+
 
 
 
