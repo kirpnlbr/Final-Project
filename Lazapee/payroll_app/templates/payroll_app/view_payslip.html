@@ -53,7 +53,7 @@
             <h3 class="ml-2">Base Pay</h3>
         </div>
         <div class="mr-96">
-            <p>{{ payslip.rate }}</p>
+            <p>{{ payslip.rate | floatformat:2 }}</p>
         </div>
     </div>
     <!-- Allowances -->
@@ -62,7 +62,7 @@
             <h3 class="ml-2">Allowances</h3>
         </div>
         <div class="mr-96">
-            <p>{{ payslip.earnings_allowance }}</p>
+            <p>{{ payslip.earnings_allowance | floatformat:2 }}</p>
         </div>
     </div>
     <!-- Overtime -->
@@ -71,7 +71,7 @@
             <h3 class="ml-2">Overtime</h3>
         </div>
         <div class="mr-96">
-            <p>{{ payslip.overtime }}</p>
+            <p>{{ payslip.overtime | floatformat:2 }}</p>
         </div>
     </div>
     <hr class="my-4" />
@@ -81,7 +81,7 @@
             <h2 class="font-bold">GROSS PAY</h2>
         </div>
         <div class="mr-64 font-semibold">
-            <h2>PHP {{ gross_pay }}</h2>
+            <h2>PHP {{ gross_pay | floatformat:2 }}</h2>
         </div>
     </div>
     <hr class="my-4" />
@@ -97,7 +97,7 @@
             <h3 class="ml-2 uppercase">W/holding Tax</h3>
         </div>
         <div class="mr-96">
-            <p>{{ payslip.deductions_tax }}</p>
+            <p>{{ payslip.deductions_tax | floatformat:2 }}</p>
         </div>
     </div>
     {% if payslip.pay_cycle == 1 %}
@@ -107,7 +107,7 @@
             <h3 class="ml-2 uppercase">Pag-ibig</h3>
         </div>
         <div class="mr-96">
-            <p>{{ payslip.pag_ibig }}</p>
+            <p>{{ payslip.pag_ibig | floatformat:2}}</p>
         </div>
     </div>
     {% else %}
@@ -117,7 +117,7 @@
             <h3 class="ml-2 uppercase">Philhealth</h3>
         </div>
         <div class="mr-96">
-            <p>{{ payslip.deductions_health }}</p>
+            <p>{{ payslip.deductions_health | floatformat:2 }}</p>
         </div>
     </div>
     <!-- SSS -->
@@ -126,7 +126,7 @@
             <h3 class="ml-2">SSS</h3>
         </div>
         <div class="mr-96">
-            <p>{{ payslip.sss }}</p>
+            <p>{{ payslip.sss | floatformat:2 }}</p>
         </div>
     </div>
     {% endif %}
@@ -136,7 +136,7 @@
             <h2 class="font-semibold">TOTAL DEDUCTIONS</h2>
         </div>
         <div>
-            <h2 class="mr-64 font-semibold">PHP {{ total_deductions }}</h2>
+            <h2 class="mr-64 font-semibold">PHP {{ total_deductions | floatformat:2 }}</h2>
         </div>
     </div>
     <hr class="my-6" />
@@ -146,7 +146,7 @@
             <h2 class="font-bold">NET PAY:</h2>
         </div>
         <div>
-            <p class="mr-64 font-semibold">PHP {{ payslip.total_pay }}</p>
+            <p class="mr-64 font-semibold">PHP {{ payslip.total_pay | floatformat:2 }}</p>
         </div>
     </div>
 </div>
