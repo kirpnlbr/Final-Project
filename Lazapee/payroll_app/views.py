@@ -208,6 +208,7 @@ def create_payslip(request):
             employee.overtime_pay = 0
             employee.save()
 
+    messages.success(request, f"Payslip successfully created.")
     return redirect('payslips')
 
 
