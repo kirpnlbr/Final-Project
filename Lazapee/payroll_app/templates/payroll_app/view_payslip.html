@@ -17,9 +17,9 @@
 </div>
 
 <!-- Payslip table -->
-<div class="rounded-lg border border-gray-200 px-8 py-10">
+<div class="rounded-lg border border-gray-200 px-8 py-10 text-sm">
     <!-- Title -->
-    <span class="text-xl font-semibold">{{ payslip.id_number.name }}'s Payslip Details</span>
+    <span class="text-lg font-semibold">{{ payslip.id_number.name }}'s Payslip Details</span>
     <hr class="mt-2.5" />
     <!-- Employee Details -->
     <div class="flex flex-row justify-between mt-4 text-[#71717A]">
@@ -94,15 +94,15 @@
     <!-- W/ Holding Tax -->
     <div class="flex flex-row justify-between text-[#71717A]">
         <div>
-            <h3 class="ml-2 uppercase ">W/holding Tax</h3>
+            <h3 class="ml-2 uppercase">W/holding Tax</h3>
         </div>
         <div class="mr-96">
             <p>{{ payslip.deductions_tax }}</p>
         </div>
     </div>
-    {% if payslip.pay_cycle == '1' %}
+    {% if payslip.pay_cycle == 1 %}
     <!-- Pag-ibig -->
-    <div class="flex flex-row justify-between text-[#71717A]">
+    <div class="flex flex-row justify-between mb-8 text-[#71717A]">
         <div>
             <h3 class="ml-2 uppercase">Pag-ibig</h3>
         </div>
