@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Employee, Payslip
 from django.urls import reverse
 from django.contrib import messages
-from datetime import datetime
 
 def employees(request):
     employees_list = Employee.objects.all()
