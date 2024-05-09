@@ -79,7 +79,7 @@
                     {{ employee.allowance | default:0 }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ employee.overtime_pay | default:0 }}
+                    {{ employee.overtime_pay | default:0 | floatformat:2 }}
                 </td>
                 <td class="px-6 py-4">
                     <div class="relative">

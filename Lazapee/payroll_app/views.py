@@ -27,16 +27,12 @@ def create_employee(request):
             rate = float(rate)
             allowance = float(allowance) if allowance else None
         except ValueError:
-            context = {
-                'error': 'Invalid input for rate or allowance.'
-            }
-            return render(request, 'payroll_app/create_employee.html', context)
+            messages.error(request, 'Invalid input for rate or allowance.')
+            return render(request, 'payroll_app/create_employee.html')
         
         if Employee.objects.filter(id_number=id_number).exists():
-            context = {
-                'error': 'Employee with this ID number already exists.'
-            }
-            return render(request, 'payroll_app/create_employee.html', context)
+            messages.error(request, 'Employee with this ID number already exists.')
+            return render(request, 'payroll_app/create_employee.html')
         
         Employee.objects.create(
             name=name,
@@ -141,6 +137,7 @@ def create_payslip(request):
         year = request.POST.get('year')
         pay_cycle = request.POST.get('cycle')
         id_number = request.POST.get('id_number')
+        capitalized_month = month.title()
 
         if id_number == 'all_employees':
             employees = Employee.objects.all()
@@ -149,12 +146,16 @@ def create_payslip(request):
             employees = [employee]
 
         for employee in employees:
+
             existing_payslip = Payslip.objects.filter(
-                id_number=employee
+                id_number=employee,
+                month=month,
+                year=year,
+                pay_cycle=pay_cycle
             ).first()
 
             if existing_payslip:
-                messages.error(request, f"Payslip already exists for Employee ID {employee.id_number}.")
+                messages.error(request, f"Payslip already exists for Employee ID {employee.id_number}  for {capitalized_month} {year}, Cycle {pay_cycle}.")
                 continue
 
             rate = employee.rate
@@ -206,8 +207,8 @@ def create_payslip(request):
 
             employee.overtime_pay = 0
             employee.save()
+            messages.success(request, "Payslip successfully created.")
 
-    messages.success(request, f"Payslip successfully created.")
     return redirect('payslips')
 
 
