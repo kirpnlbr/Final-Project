@@ -21,7 +21,7 @@
     <div class="w-full max-w-lg rounded-md border border-gray-200 sm:p-6 md:p-8 bg-white">
         <form class="space-y-6" action="{% url 'update_employee' employee.id_number %}" method="POST">
             {% csrf_token %}
-            <h2 class="text-xl font-medium">Edit Employee Details</h2>
+            <h2 class="text-xl font-medium">Update Employee Details</h2>
 
             <!-- Name -->
             <div>
@@ -35,9 +35,9 @@
             <div>
                 <label for="id_number" class="block mb-2 text-sm font-medium text-gray-900">ID Number</label>
                 <input type="number" name="id_number" id="id_number"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-md block w-full p-2.5"
-                    value="{{ employee.id_number }}" required readonly />
-            </div>            
+                    class="bg-gray-100 border border-gray-300 text-gray-400 text-sm rounded-md block w-full p-2.5"
+                    value="{{ employee.id_number }}" required disabled />
+            </div>
             <!-- Rate -->
             <div>
                 <label for="rate" class="block mb-2 text-sm font-medium text-gray-900">Rate</label>
