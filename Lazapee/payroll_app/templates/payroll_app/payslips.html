@@ -133,7 +133,7 @@
                     {{ payslip.pay_cycle }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ payslip.total_pay }}
+                    {{ payslip.total_pay | floatformat:2 }}
                 </td>
                 <td class="px-6 py-4 flex items-center space-x-2">
                     <a href="{% url 'view_payslip' payslip.id %}"
