@@ -22,6 +22,10 @@ def create_employee(request):
         id_number = request.POST.get('id_number')
         rate = request.POST.get('rate')
         allowance = request.POST.get('allowance')
+
+        if float(rate) < 570:
+                messages.error(request, "You must pay your employees fair wages! Above minimum wage, please.")
+                return redirect('create_employee')
         
         if allowance is None:
                 allowance = 0.0
@@ -59,6 +63,10 @@ def update_employee(request, id_number):
         name = request.POST.get('name')
         rate = request.POST.get('rate')
         allowance = request.POST.get('allowance')
+
+        if float(rate) < 570:
+                messages.error(request, "You must pay your employees fair wages! Above minimum wage, please.")
+                return redirect('update_employee')
         
         if allowance is None:
                 allowance = 0.0
