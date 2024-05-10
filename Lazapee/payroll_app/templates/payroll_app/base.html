@@ -58,8 +58,8 @@
    </nav>
 
    <!-- Sidebar -->
-   <aside id="logo-sidebar"
-      class="fixed top-0 left-0 z-40 w-64 h-screen pt-24 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 flex flex-col justify-between"
+   <aside
+      class="fixed top-0 left-0 z-40 w-64 h-screen pt-24 bg-white border-r border-gray-200 flex flex-col justify-between"
       aria-label="Sidebar">
       <div class="h-full px-4 pb-4 overflow-y-auto bg-white">
          <ul class="space-y-2 font-medium">
@@ -90,14 +90,14 @@
             </li>
          </ul>
       </div>
-      <!-- @2024 -->
+      <!-- @ 2024 -->
       <div class="px-5 pb-6 overflow-y-auto">
          <span class="text-xs text-gray-400 font-light">&copy; 2024 KK. All rights reserved.</span>
       </div>
    </aside>
 
    <!-- Main -->
-   <div class="py-8 px-12 sm:ml-64">
+   <div class="py-8 px-12 ml-64">
       <div class="p-4 mt-16">
          {% block content %}
          {% endblock %}
