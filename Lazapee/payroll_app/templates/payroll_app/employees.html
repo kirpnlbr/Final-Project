@@ -7,7 +7,7 @@
 <div class="flex items-center justify-between mb-12">
     <div>
         <span class="text-2xl font-semibold">Employees</span>
-        <p class="text-sm pt-2 text-[#71717A]">Manage your employees and their allowance.</p>
+        <p class="text-sm pt-2 text-[#71717A]">Manage your employees and their compensations.</p>
     </div>
     <div>
         <a href="{% url 'create_employee' %}"
@@ -40,7 +40,7 @@
         </ul>
     </div>
     {% endif %}
-    <table class="w-full text-sm text-left text-[#71717A] mb-10">
+    <table class="w-full text-sm text-left text-[#71717A] mb-10 z-10">
         <thead class="text-xs text-[#71717A] uppercase border-b">
             <tr>
                 <th scope="col" class="px-6 py-3">
@@ -77,25 +77,25 @@
                 </td>
                 <td class="px-6 py-4">
                     {% if employee.allowance == 0 or employee.allowance is None %}
-                        0
+                    0
                     {% else %}
-                        {{ employee.allowance|floatformat:2 }}
+                    {{ employee.allowance|floatformat:2 }}
                     {% endif %}
                 </td>
-                
+
                 <td class="px-6 py-4">
                     {% if employee.overtime_pay == 0 or employee.overtime_pay is None %}
-                        0
+                    0
                     {% else %}
-                        {{ employee.overtime_pay|floatformat:2 }}
+                    {{ employee.overtime_pay|floatformat:2 }}
                     {% endif %}
-                </td>                
-                </td>                
+                </td>
+                </td>
                 </td>
                 <td class="px-6 py-4">
                     <div class="relative">
                         <button onclick="toggleDropdown('{{ employee.id_number }}')"
-                            class="flex items-center bg-gray-50 border border-gray-200 px-4 py-2 rounded-md text-gray-900">
+                            class="flex items-center bg-gray-50 border hover:bg-gray-100 border-gray-200 px-4 py-2 rounded-md text-gray-900">
                             Options
                             <svg class="ml-1.5 -mr-1" width="15" height="15" viewBox="0 0 15 15" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -147,17 +147,20 @@
                                 <hr class="my-2 border-gray-200">
                                 <!-- Delete Employee -->
                                 <li>
-                                    <form method="POST" action="{% url 'delete_employee' employee.id_number %}" onsubmit="return confirm('Are you sure you want to delete this employee?');">
+                                    <form method="POST" action="{% url 'delete_employee' employee.id_number %}"
+                                        onsubmit="return confirm('Are you sure you want to delete this employee?');">
                                         {% csrf_token %}
-                                        <button type="submit" class="w-full px-4 py-2 hover:bg-gray-100 flex items-center text-red-600">
-                                            <svg class="mr-2" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <button type="submit"
+                                            class="w-full px-4 py-2 hover:bg-gray-100 flex items-center text-red-600">
+                                            <svg class="mr-2" width="15" height="15" viewBox="0 0 15 15" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M5.5 1C5.22386 1 5 1.22386 5 1.5C5 1.77614 5.22386 2 5.5 2H9.5C9.77614 2 10 1.77614 10 1.5C10 1.22386 9.77614 1 9.5 1H5.5ZM3 3.5C3 3.22386 3 3 3.5 3H5H10H11.5C11.7761 3 12 3.22386 12 3.5C12 3.77614 11.7761 4 11.5 4H11V12C11 12.5523 10.5523 13 10 13H5C4.44772 13 4 12.5523 4 12V4L3.5 4C3.22386 4 3 3.77614 3 3.5ZM5 4H10V12H5V4Z"
                                                     fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path>
                                             </svg>
                                             Delete Employee
                                         </button>
-                                    </form>                                    
+                                    </form>
                                 </li>
                             </ul>
                         </div>
