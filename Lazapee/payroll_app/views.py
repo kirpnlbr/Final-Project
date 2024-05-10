@@ -221,7 +221,6 @@ def create_payslip(request):
 
     return redirect('payslips')
 
-
 def view_payslip(request, payslip_id):
     payslip = get_object_or_404(Payslip, id=payslip_id)
 
@@ -249,14 +248,3 @@ def delete_payslip(request, payslip_id):
     else:
         messages.error(request, 'Invalid request method.')
         return redirect('payslips')
-
-def delete_employee(request, id_number):
-    if request.method == 'POST':
-        employee = Employee.objects.filter(id_number=id_number).first()
-        
-        if employee:
-            employee.delete()
-        
-        return redirect(reverse('employees'))
-
-    return render(request, 'payroll_app/employees.html', {'error': 'Invalid request method'})
